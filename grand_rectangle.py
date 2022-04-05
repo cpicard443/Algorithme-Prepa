@@ -1,5 +1,7 @@
 import sys
-
+"""
+Etant donné une grille remplie de 0 et de 1 l'algorithme calcul l'aire du plus grand rectangle de 0
+"""
 def pre_calcul(tab):
 	n = len(tab)
 	m = len(tab[0])
@@ -41,31 +43,29 @@ def calculR(histo):
 def plusGrandRectangleHisto(histo,L,R):
 	n = len(histo)
 	airemax = histo[n-1]
-	cotemax = 0
 	for i in range(n):
 		l=L[i]
 		h = histo[i]
 		r = R[i]
 		airemax = max(airemax, (r-l+1)*h)
-		cotemax = max(cotemax,min(r-l+1,h))
-	return (airemax,cotemax)
+	return airemax
 
-def cotemax(tab):
+def airemax(tab):
 	col = pre_calcul(tab)
 	#print(col)
 	maxi = 0
 	for lig in col:
 		R = calculR(lig)
 		L = calculL(lig)
-		(a,c)=plusGrandRectangleHisto(lig,L,R)
+		a=plusGrandRectangleHisto(lig,L,R)
 		#print("RESULTAT: ", lig,a,c)
 		#print(R,L)
 		#print("__________")
-		maxi = max(maxi,c)
+		maxi = max(maxi,a)
 	return maxi
 
 n,m = map(int, sys.stdin.readline().split())
 tab = [list(map(int, sys.stdin.readline().split()))for i in range(n)]
-print(cotemax(tab))
+print(airemax(tab))
 
 
